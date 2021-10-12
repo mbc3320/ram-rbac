@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.beanshell.rbac.mapper.RbacTicketMapper">
+
+
+    <select id="findUserAvailableTicket" resultType="java.lang.String">
+        SELECT
+            ticket
+        FROM
+            tb_rbac_ticket
+        WHERE
+            user_id = #{userId}
+        AND
+            TIMESTAMPDIFF( MINUTE, now( ), time_expire ) > 0
+    </select>
+</mapper>
