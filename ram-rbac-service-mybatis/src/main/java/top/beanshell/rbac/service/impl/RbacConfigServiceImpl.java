@@ -13,6 +13,8 @@ import top.beanshell.common.utils.JSON;
 import top.beanshell.mybatis.impl.CRUDServiceImpl;
 import top.beanshell.mybatis.util.PageUtil;
 import top.beanshell.rbac.common.constant.RamRbacConst;
+import top.beanshell.rbac.common.exception.RbacConfigException;
+import top.beanshell.rbac.common.exception.code.RbacConfigStatusCode;
 import top.beanshell.rbac.mapper.RbacConfigMapper;
 import top.beanshell.rbac.model.bo.RbacSysGlobalConfigBO;
 import top.beanshell.rbac.model.dto.RbacConfigDTO;
@@ -40,6 +42,10 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
     @Override
     public boolean saveEntity(RbacConfigDTO dto) {
         cleanCacheByCode(dto);
+        RbacConfig config = getByCode(dto.getKeyCode());
+        if (null != config) {
+            throw new RbacConfigException(RbacConfigStatusCode.KEY_CODE_IS_EXIST);
+        }
         return super.saveEntity(dto);
     }
 
@@ -89,6 +95,18 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
         return PageUtil.getPageResult(page, RbacConfigDTO.class);
     }
 
+    /**
+     * 通过键码查询
+     * @param keyCode
+     * @return
+     */
+    private RbacConfig getByCode(String keyCode) {
+        LambdaQueryWrapper<RbacConfig> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(RbacConfig::getKeyCode, keyCode);
+        RbacConfig config = getOne(wrapper);
+        return config;
+    }
+
     @Override
     public RbacConfigDTO getByKeyCode(String keyCode) {
 
@@ -97,9 +115,7 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
                     .get(getCacheKey(keyCode));
         }
 
-        LambdaQueryWrapper<RbacConfig> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(RbacConfig::getKeyCode, keyCode);
-        RbacConfig config = getOne(wrapper);
+        RbacConfig config = getByCode(keyCode);
 
         RbacConfigDTO dto = null;
 
