@@ -45,4 +45,19 @@ public class RbacTicketQuery implements Serializable {
      * 3: 其他用户
      */
     private Integer userFrom;
+
+    /**
+     * 用户昵称
+     */
+    private String nickName;
+
+    /**
+     * 凭证信息
+     */
+    private String ticket;
+
+    /**
+     * ip地址
+     */
+    private String ipAddress;
 }

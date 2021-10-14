@@ -5,11 +5,41 @@
     <parent>
         <artifactId>ram-rbac</artifactId>
         <groupId>top.beanshell</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ram-rbac-endpoint</artifactId>
+    <name>ram-rbac-endpoint</name>
+
+    <description>
+        ram rbac base component --- restful api impl.
+    </description>
+
+    <url>https://www.beanshell.top</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>https://github.com/mbc3320/ram-rbac.git</connection>
+        <url>https://github.com/mbc3320/ram-rbac</url>
+    </scm>
+    <developers>
+        <developer>
+            <email>mobinchao@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/mbc3320/ram-rbac/issues</url>
+    </issueManagement>
+
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

@@ -5,11 +5,41 @@
     <parent>
         <artifactId>ram-rbac</artifactId>
         <groupId>top.beanshell</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ram-rbac-common</artifactId>
+    <name>ram-rbac-common</name>
+
+    <description>
+        ram rbac base component --- common module.
+    </description>
+
+    <url>https://www.beanshell.top</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>https://github.com/mbc3320/ram-rbac.git</connection>
+        <url>https://github.com/mbc3320/ram-rbac</url>
+    </scm>
+    <developers>
+        <developer>
+            <email>mobinchao@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/mbc3320/ram-rbac/issues</url>
+    </issueManagement>
+
 
     <dependencies>
         <dependency>
@@ -23,13 +53,13 @@
             <groupId>com.ibeetl</groupId>
             <artifactId>sql-core</artifactId>
             <version>3.10.1-RELEASE</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-annotation</artifactId>
             <version>3.4.3.4</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ram-rbac</artifactId>
+        <groupId>top.beanshell</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ram-rbac-dao-beetlsql</artifactId>
+    <name>ram-rbac-dao-beetlsql</name>
+
+    <description>
+        ram rbac base component --- dao beetlsql impl.
+    </description>
+
+    <url>https://www.beanshell.top</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>https://github.com/mbc3320/ram-rbac.git</connection>
+        <url>https://github.com/mbc3320/ram-rbac</url>
+    </scm>
+    <developers>
+        <developer>
+            <email>mobinchao@hotmail.com</email>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/mbc3320/ram-rbac/issues</url>
+    </issueManagement>
+
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>top.beanshell</groupId>
+            <artifactId>ram-config-beetlsql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.beanshell</groupId>
+            <artifactId>ram-rbac-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>top.beanshell</groupId>
+            <artifactId>ram-rbac-dao-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -13,23 +13,30 @@ public interface RbacRoleUserService extends ServiceI<RbacRoleUserDTO> {
 
     /**
      * 移除用户角色授权
-     * @param roleId
-     * @param userId
-     * @return
+     * @param roleId    角色ID
+     * @param userId    角色ID
+     * @return          撤权结果
      */
     boolean removeByUniqueKey(Long roleId, Long userId);
 
     /**
      * 通过角色ID查询已授权用户ID
-     * @param roleId
-     * @return
+     * @param roleId   角色ID
+     * @return         角色已授权用户ID列表
      */
     List<Long> findRoleUserIds(Long roleId);
 
     /**
      * 统计角色授权数量
-     * @param roleId
-     * @return
+     * @param roleId   角色ID
+     * @return         统计结果
      */
     long countRoleUserAuth(Long roleId);
+
+    /**
+     * 撤销用户所有角色授权
+     * @param userId   用户ID
+     * @return         撤权结果
+     */
+    boolean removeByUserId(Long userId);
 }

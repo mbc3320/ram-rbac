@@ -88,9 +88,9 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
      * <p>
      * 判断权限是否合法，支持 1、请求地址 2、注解编码
      * </p>
-     * @param request
-     * @param handler
-     * @return
+     * @param request  servlet request
+     * @param handler  handler
+     * @return         鉴权结果
      */
     protected boolean isVerification( HttpServletRequest request, Object handler) {
         /*
@@ -133,9 +133,8 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
      * 无权限访问处理，默认返回 403
      * </p>
      *
-     * @param response
-     * @return
-     * @throws Exception
+     * @param response   servlet response
+     * @return           false
      */
     protected boolean unauthorizedAccess(HttpServletResponse response ) {
         ResponseUtil.responseJson(response, new BaseResponse(GlobalStatusCode.PERMISSION_DENY));
@@ -144,8 +143,8 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
     /**
      *  从头信息获取ticket
-     * @param request
-     * @return
+     * @param request      servlet request
+     * @return             ticketInfo
      */
     private TicketInfoBO getTicketInfo(HttpServletRequest request) {
         String ticket = request.getHeader(RamRbacConst.DEFAULT_TICKET_HEADER_KEY);

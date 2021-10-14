@@ -5,6 +5,7 @@
 //import org.beetl.sql.starter.SQLManagerCustomize;
 //import org.springframework.context.ApplicationContext;
 //import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
 //import org.springframework.context.annotation.Primary;
 //import org.springframework.core.env.Environment;
 //import top.beanshell.common.utils.IdUtil;
@@ -15,7 +16,7 @@
 ///**
 // * simple datasource config
 // */
-////@Configuration
+//@Configuration
 //@Slf4j
 //public class SimpleBeetlSQLDataSourceConfig {
 //

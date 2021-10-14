@@ -59,5 +59,16 @@ public class UserLoginFormDTO implements Serializable {
      */
     private ClientType clientType;
 
+    /**
+     * 客户端信息
+     */
+    private String clientInfo;
+
+    /**
+     * 其他自定义参数
+     * 可用是json字符串
+     * 供自定义登录方式客制化使用
+     */
+    private String extra;
 
 }

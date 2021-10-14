@@ -182,6 +182,6 @@ else
   elif [ "${OPERATE}" == "help" ]; then
     displayHelp
   else
-    echo "Not supported the OPERATE. Just type 'help' to display what operator is supported."
+    echo "Operate error. Just type 'help' to display what operator is supported."
   fi
 fi

@@ -6,19 +6,22 @@
 
     <groupId>top.beanshell</groupId>
     <artifactId>ram-rbac</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <name>ram-rbac</name>
+    <version>1.0.0</version>
     <modules>
         <module>ram-rbac-api</module>
         <module>ram-rbac-endpoint</module>
-        <module>ram-rbac-service-beetlsql</module>
         <module>ram-rbac-common</module>
-        <module>ram-rbac-service-jpa</module>
         <module>ram-rbac-simple-auth</module>
         <module>app-container</module>
         <module>app-test</module>
         <module>app-config</module>
         <module>ram-rbac-api-custom</module>
-        <module>ram-rbac-service-mybatis</module>
+        <module>ram-rbac-service</module>
+        <module>ram-rbac-dao-api</module>
+        <module>ram-rbac-dao-mybatis</module>
+        <module>ram-rbac-dao-beetlsql</module>
+        <module>ram-rbac-dao-jpa</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -54,13 +57,15 @@
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <aggregate.report.dir>app-test/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+        <skipTests>false</skipTests>
         <spring.boot.version>2.3.12.RELEASE</spring.boot.version>
-        <ram-bom.version>1.0.0-SNAPSHOT</ram-bom.version>
-        <ram-common.version>1.0.0-SNAPSHOT</ram-common.version>
-        <ram-config-web.version>1.0.0-SNAPSHOT</ram-config-web.version>
-        <ram-config-redis.version>1.0.0-SNAPSHOT</ram-config-redis.version>
-        <ram-config-mybatis.version>1.0.0-SNAPSHOT</ram-config-mybatis.version>
-        <ram-config-beetlsql.version>1.0.0-SNAPSHOT</ram-config-beetlsql.version>
+        <ram-bom.version>1.0.2</ram-bom.version>
+        <ram-common.version>1.0.2</ram-common.version>
+        <ram-config-web.version>1.0.2</ram-config-web.version>
+        <ram-config-redis.version>1.0.2</ram-config-redis.version>
+        <ram-config-mybatis.version>1.0.2</ram-config-mybatis.version>
+        <ram-config-beetlsql.version>1.0.2</ram-config-beetlsql.version>
     </properties>
 
     <dependencyManagement>
@@ -100,8 +105,55 @@
         </dependencies>
     </dependencyManagement>
 
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <!-- config of package -->
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.6</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -111,19 +163,16 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <!-- Source -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
-                        <id>attach-sources</id>
-                        <phase>compile</phase>
+                        <phase>package</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -136,6 +185,20 @@
                     <skip>false</skip>
                 </configuration>
             </plugin>
+            <!-- jacoco 单元测试覆盖率统计插件 -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

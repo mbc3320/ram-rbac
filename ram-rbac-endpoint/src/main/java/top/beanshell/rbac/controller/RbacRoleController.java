@@ -40,8 +40,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 保存角色
-     * @param request
-     * @return
+     * @param request request parameter
+     * @return        true or false
      */
     @PostMapping("/save")
     @Authorization("api_rbac_role_save")
@@ -53,8 +53,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 更新角色信息
-     * @param request
-     * @return
+     * @param request   request parameter
+     * @return          true or false
      */
     @PostMapping("/updateById")
     @Authorization("api_rbac_role_updateById")
@@ -66,8 +66,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 通过ID查询角色信息
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         role info
      */
     @PostMapping("/getById")
     @Authorization("api_rbac_role_getById")
@@ -78,8 +78,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 通过ID删除角色信息
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         true or false
      */
     @PostMapping("/removeById")
     @Authorization("api_rbac_role_removeById")
@@ -90,8 +90,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 分页查询
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         permission page info
      */
     @PostMapping("/page")
     @Authorization("api_rbac_role_page")
@@ -102,8 +102,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 授权用户角色
-     * @param request
-     * @return
+     * @param request   request parameter
+     * @return          true or false
      */
     @PostMapping("/grant")
     @Authorization("api_rbac_role_grant")
@@ -114,8 +114,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 撤销用户角色
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         true or false
      */
     @PostMapping("/revoke")
     @Authorization("api_rbac_role_revoke")
@@ -126,27 +126,25 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 授权角色权限
-     * @param request
-     * @return
+     * @param request   request parameter
+     * @return          true or false
      */
     @PostMapping("/permissionGrant")
     @Authorization("api_rbac_role_permissionGrant")
     public BaseResponse permissionGrant(@Valid @RequestBody BaseRequest<RbacRoleRelSaveRequest> request) {
-        boolean resultBefore = roleService.grantPermissionBefore(request.getData().getRoleId(),
+        boolean resultBefore = roleService.grantPermission(request.getData().getRoleId(),
                 request.getData().getPermissionIds(),
                 request.getData().getPermissionType());
         if (resultBefore) {
-            roleService.grantPermissionAfter(request.getData().getRoleId(),
-                    request.getData().getPermissionIds(),
-                    request.getData().getPermissionType());
+            roleService.refreshRoleUserPermission(request.getData().getRoleId());
         }
         return baseResponse(resultBefore);
     }
 
     /**
      * 权限树
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         permission tree
      */
     @PostMapping("/findAuthPermissionTree")
     @Authorization("api_rbac_role_findAuthPermissionTree")
@@ -157,8 +155,8 @@ public class RbacRoleController extends BaseController {
 
     /**
      * 角色分页查询（角色授权用户）
-     * @param request
-     * @return
+     * @param request     request parameter
+     * @return            user info page
      */
     @PostMapping("/authRolePage")
     @Authorization("api_rbac_role_authRolePage")

@@ -37,8 +37,8 @@ public class RbacConfigController extends BaseController {
     /**
      * 保存配置
      *
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         true or false
      */
     @PostMapping("/save")
     @Authorization("api_rbac_config_save")
@@ -51,8 +51,8 @@ public class RbacConfigController extends BaseController {
     /**
      * 更新配置
      *
-     * @param request
-     * @return
+     * @param request request parameter
+     * @return        true or false
      */
     @PostMapping("/updateById")
     @Authorization("api_rbac_config_updateById")
@@ -65,8 +65,8 @@ public class RbacConfigController extends BaseController {
     /**
      * 获取配置详情
      *
-     * @param request
-     * @return
+     * @param request request parameter
+     * @return        config info
      */
     @PostMapping("/getById")
     @Authorization("api_rbac_config_getById")
@@ -78,8 +78,8 @@ public class RbacConfigController extends BaseController {
     /**
      * 删除配置
      *
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         true or false
      */
     @PostMapping("/removeById")
     @Authorization("api_rbac_config_removeById")
@@ -91,8 +91,8 @@ public class RbacConfigController extends BaseController {
     /**
      * 分页查询配置信息
      *
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return        config page info
      */
     @PostMapping("/page")
     @Authorization("api_rbac_config_page")
@@ -104,7 +104,7 @@ public class RbacConfigController extends BaseController {
 
     /**
      * 获取系统全局设定
-     * @return
+     * @return  global settings
      */
     @PostMapping("/getGlobalConfig")
     @Authorization("api_rbac_config_getGlobalConfig")
@@ -115,8 +115,8 @@ public class RbacConfigController extends BaseController {
 
     /**
      * 保存或更新系统全局配置
-     * @param request
-     * @return
+     * @param request request parameter
+     * @return        true or false
      */
     @PostMapping("/saveOrUpdateGlobalConfig")
     @Authorization("api_rbac_config_saveOrUpdateGlobalConfig")

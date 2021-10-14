@@ -39,8 +39,8 @@ public class RbacUserController extends BaseController {
 
     /**
      * 保存用户
-     * @param request
-     * @return
+     * @param request   request parameter
+     * @return          true or false
      */
     @PostMapping("/save")
     @Authorization("api_rbac_user_save")
@@ -52,8 +52,8 @@ public class RbacUserController extends BaseController {
 
     /**
      * 更新用户信息
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         true or false
      */
     @PostMapping("/updateById")
     @Authorization("api_rbac_user_updateById")
@@ -65,8 +65,8 @@ public class RbacUserController extends BaseController {
 
     /**
      * 通过ID查询用户信息
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         user info
      */
     @PostMapping("/getById")
     @Authorization("api_rbac_user_getById")
@@ -77,8 +77,8 @@ public class RbacUserController extends BaseController {
 
     /**
      * 通过ID删除用户信息
-     * @param request
-     * @return
+     * @param request   request parameter
+     * @return          true or false
      */
     @PostMapping("/removeById")
     @Authorization("api_rbac_user_removeById")
@@ -89,8 +89,8 @@ public class RbacUserController extends BaseController {
 
     /**
      * 分页查询
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         user page info
      */
     @PostMapping("/page")
     @Authorization("api_rbac_user_page")
@@ -101,8 +101,8 @@ public class RbacUserController extends BaseController {
 
     /**
      * 修改当前用户密码
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return       true or false
      */
     @PostMapping("/changeUserPassword")
     @Authorization("api_rbac_user_changeUserPassword")

@@ -37,8 +37,8 @@ public class RbacPermissionController extends BaseController {
 
     /**
      * 保存权限
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         true or false
      */
     @PostMapping("/save")
     @Authorization("api_rbac_permission_save")
@@ -50,8 +50,8 @@ public class RbacPermissionController extends BaseController {
 
     /**
      * 更新权限信息
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         true or false
      */
     @PostMapping("/updateById")
     @Authorization("api_rbac_permission_updateById")
@@ -63,8 +63,8 @@ public class RbacPermissionController extends BaseController {
 
     /**
      * 通过ID查询权限信息
-     * @param request
-     * @return
+     * @param request   request parameter
+     * @return          permission info
      */
     @PostMapping("/getById")
     @Authorization("api_rbac_permission_getById")
@@ -75,8 +75,8 @@ public class RbacPermissionController extends BaseController {
 
     /**
      * 通过ID删除权限信息
-     * @param request
-     * @return
+     * @param request   request parameter
+     * @return          true or false
      */
     @PostMapping("/removeById")
     @Authorization("api_rbac_permission_removeById")
@@ -87,8 +87,8 @@ public class RbacPermissionController extends BaseController {
 
     /**
      * 分页查询
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         permission page info
      */
     @PostMapping("/page")
     @Authorization("api_rbac_permission_page")
@@ -100,8 +100,8 @@ public class RbacPermissionController extends BaseController {
 
     /**
      * 权限树列表
-     * @param request
-     * @return
+     * @param request  request parameter
+     * @return         permission info list
      */
     @PostMapping("/simpleTree")
     @Authorization("api_rbac_permission_simpleTree")
