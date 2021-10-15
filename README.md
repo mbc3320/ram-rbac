@@ -35,11 +35,11 @@ RAM开发框架提供了一组原型工程，可以使用原型工程，初始�
 | 原型类型 | 项目地址 |
 |  ----  | ----  |
 | ram-webapp-with-mybatis | [https://github.com/mbc3320/ram-webapp-with-mybatis.git](https://github.com/mbc3320/ram-webapp-with-mybatis.git) |
-| ram-webapp-with-mybatis-with-ui | 待开发 |
+| ram-webapp-with-mybatis-and-ui | 待开发 |
 | ram-webapp-with-beetlsql | 待开发 |
-| ram-webapp-with-beetlsql-with-ui | 待开发 |
+| ram-webapp-with-beetlsql-and-ui | 待开发 |
 | ram-webapp-with-jpa | 待开发 |
-| ram-webapp-with-jpa-with-ui | 待开发 |
+| ram-webapp-with-jpa-and-ui | 待开发 |
 
 
 ### 根pom配置
