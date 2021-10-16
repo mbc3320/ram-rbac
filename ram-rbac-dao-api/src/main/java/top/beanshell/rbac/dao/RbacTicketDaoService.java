@@ -6,6 +6,7 @@ import top.beanshell.common.service.ServiceI;
 import top.beanshell.rbac.model.dto.RbacTicketDTO;
 import top.beanshell.rbac.model.query.RbacTicketQuery;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,10 +17,18 @@ public interface RbacTicketDaoService extends ServiceI<RbacTicketDTO> {
 
     /**
      * 通过ticket更新ticket信息
-     * @param ticketInfo  凭证信息
-     * @return            更新结果
+     * @param ticketInfo     凭证信息
+     * @return               更新结果
      */
     boolean updateByTicket(RbacTicketDTO ticketInfo);
+
+    /**
+     * 通过ticket更新ticket信息
+     * @param ticketInfo     凭证信息
+     * @param oldUpdateTime  原更新时间(传null不参与where条件)
+     * @return               更新结果
+     */
+    boolean updateByTicketAndUpdateTime(RbacTicketDTO ticketInfo, Date oldUpdateTime);
 
     /**
      * 分页查询
@@ -34,4 +43,11 @@ public interface RbacTicketDaoService extends ServiceI<RbacTicketDTO> {
      * @return         有效凭证列表
      */
     List<String> findUserAvailableTicket(Long userId);
+
+    /**
+     * 通过Ticket凭证查询凭证记录详情
+     * @param ticket  ticket
+     * @return        凭证详情
+     */
+    RbacTicketDTO getByTicket(String ticket);
 }

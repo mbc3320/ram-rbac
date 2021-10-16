@@ -11,7 +11,7 @@
  Target Server Version : 50735
  File Encoding         : 65001
 
- Date: 14/10/2021 20:22:23
+ Date: 16/10/2021 16:29:45
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `tb_rbac_config`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `key_code`(`key_code`) USING BTREE
+  UNIQUE INDEX `uk_rbac_config_key_code`(`key_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_croatian_ci COMMENT = '系统K/V字典' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -45,7 +45,7 @@ CREATE TABLE `tb_rbac_permission`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `tb_admin_permission_UN_permission_code`(`permission_code`) USING BTREE
+  UNIQUE INDEX `uk_rbac_permission_permission_code`(`permission_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -61,7 +61,7 @@ CREATE TABLE `tb_rbac_role`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `tb_admin_role_UN_role_code`(`role_code`) USING BTREE
+  UNIQUE INDEX `uk_rbac_role_role_code`(`role_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -76,7 +76,7 @@ CREATE TABLE `tb_rbac_role_permission`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `tb_admin_role_permission_UN`(`role_id`, `permission_id`) USING BTREE
+  UNIQUE INDEX `uk_rbac_rp_role_id_permission_id`(`role_id`, `permission_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -90,7 +90,7 @@ CREATE TABLE `tb_rbac_role_user`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `tb_admin_role_user_UN`(`role_id`, `user_id`) USING BTREE
+  UNIQUE INDEX `uk_rbac_ru_role_id_user_id`(`role_id`, `user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色用户关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -117,10 +117,11 @@ CREATE TABLE `tb_rbac_ticket`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `user_id`(`user_id`) USING BTREE,
-  INDEX `account`(`account`) USING BTREE,
-  INDEX `email`(`email`) USING BTREE,
-  INDEX `phone_number`(`phone_number`) USING BTREE
+  UNIQUE INDEX `uk_rbac_ticket_ticket`(`ticket`) USING BTREE,
+  INDEX `idx_rbac_ticket_user_id`(`user_id`) USING BTREE,
+  INDEX `idx_rbac_ticket_account`(`account`) USING BTREE,
+  INDEX `idx_rbac_ticket_email`(`email`) USING BTREE,
+  INDEX `idx_rbac_ticket_phone_number`(`phone_number`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_croatian_ci COMMENT = '用户凭证信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -139,9 +140,9 @@ CREATE TABLE `tb_rbac_user`  (
   `create_time` timestamp(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` timestamp(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `tb_rbac_user_UN_account`(`account`) USING BTREE,
-  UNIQUE INDEX `tb_rbac_user_UN_email`(`email`) USING BTREE,
-  UNIQUE INDEX `tb_rbac_user_UN_phone_number`(`phone_number`) USING BTREE
+  UNIQUE INDEX `uk_rbac_user_account`(`account`) USING BTREE,
+  UNIQUE INDEX `uk_rbac_user_email`(`email`) USING BTREE,
+  UNIQUE INDEX `uk_rbac_user_phone_number`(`phone_number`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

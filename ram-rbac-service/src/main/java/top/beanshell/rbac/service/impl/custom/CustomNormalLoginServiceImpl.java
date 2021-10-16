@@ -42,6 +42,11 @@ public class CustomNormalLoginServiceImpl implements CustomLoginService {
             throw new RbacUserException(RbacUserStatusCode.USER_IS_NOT_EXIST);
         }
 
+        // check user state
+        if (!AccountState.NORMAL.equals(user.getAccountState())) {
+            throw new RbacUserException(RbacUserStatusCode.USER_STATE_ERROR);
+        }
+
         try {
             if (!PasswordStorage.verifyPassword(loginForm.getAccountAuth(), user.getPassword())) {
                 throw new RbacUserException(RbacUserStatusCode.USER_PASSWORD_ERROR);
@@ -50,10 +55,6 @@ public class CustomNormalLoginServiceImpl implements CustomLoginService {
             throw be;
         } catch (Exception e) {
             log.error("Password valid error: account = {}", loginForm.getAccount(), e);
-        }
-
-        if (!AccountState.NORMAL.equals(user.getAccountState())) {
-            throw new RbacUserException(RbacUserStatusCode.USER_STATE_ERROR);
         }
 
         UserDetailBO userDetailBO = new UserDetailBO();
