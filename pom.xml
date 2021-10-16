@@ -7,7 +7,7 @@
     <groupId>top.beanshell</groupId>
     <artifactId>ram-rbac</artifactId>
     <name>ram-rbac</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <modules>
         <module>ram-rbac-api</module>
         <module>ram-rbac-endpoint</module>

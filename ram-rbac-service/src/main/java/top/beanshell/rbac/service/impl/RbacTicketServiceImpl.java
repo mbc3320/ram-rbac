@@ -88,6 +88,8 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
             redisTemplate.expire(ticketKey, getTicketTimeout(), TimeUnit.MINUTES);
 
             ticketUpdateThreads.execute(() -> {
+                RbacTicketDTO dbTicket = daoService.getByTicket(ticket);
+
                 RbacTicketDTO ti = new RbacTicketDTO();
                 ti.setTicket(ticket);
                 ti.setLastRefreshTime(lastRefreshTime);
@@ -95,7 +97,7 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
                 ti.setTimeExpire(expiryTime);
                 ti.setUpdateTime(new Date());
 
-                daoService.updateByTicket(ti);
+                daoService.updateByTicketAndUpdateTime(ti, dbTicket.getUpdateTime());
             });
             return true;
         } else {
@@ -110,6 +112,7 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
         boolean result = redisTemplate.delete(getCacheKey(ticket));
 
         if (result) {
+
             RbacTicketDTO ti = new RbacTicketDTO();
             ti.setTicket(ticket);
             ti.setTimeExpire(new Date());

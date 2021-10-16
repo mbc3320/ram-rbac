@@ -63,6 +63,13 @@ public class RbacTicketServiceTest extends AppBootstrapTest {
         boolean refreshResult = ticketService.refresh(ticketInfoBO.getTicket());
         Assert.assertTrue(refreshResult);
 
+        try {
+            // todo waiting ticket refresh process finish.
+            Thread.sleep(1000);
+        } catch (Exception e) {
+
+        }
+
         // 销毁ticket
         boolean result = ticketService.destroy(ticketInfoBO.getTicket());
         Assert.assertTrue(result);
@@ -86,6 +93,13 @@ public class RbacTicketServiceTest extends AppBootstrapTest {
                 .userAgent("Chrome 88")
                 .build();
         return formDTO;
+    }
+
+    @Test
+    public void destroy() {
+        TicketInfoBO ticketInfoBO = getTicketInfoBO();
+        boolean result = ticketService.destroy(ticketInfoBO.getTicket());
+        Assert.assertTrue(result);
     }
 
     @Test

@@ -35,11 +35,11 @@ RAM开发框架提供了一组原型工程，可以使用原型工程，初始�
 | 原型类型 | 项目地址 |
 |  ----  | ----  |
 | ram-webapp-with-mybatis | [https://github.com/mbc3320/ram-webapp-with-mybatis.git](https://github.com/mbc3320/ram-webapp-with-mybatis.git) |
-| ram-webapp-with-mybatis-with-ui | 待开发 |
+| ram-webapp-with-mybatis-and-ui | 待开发 |
 | ram-webapp-with-beetlsql | 待开发 |
-| ram-webapp-with-beetlsql-with-ui | 待开发 |
+| ram-webapp-with-beetlsql-and-ui | 待开发 |
 | ram-webapp-with-jpa | 待开发 |
-| ram-webapp-with-jpa-with-ui | 待开发 |
+| ram-webapp-with-jpa-and-ui | 待开发 |
 
 
 ### 根pom配置
@@ -66,7 +66,7 @@ RAM开发框架提供了一组原型工程，可以使用原型工程，初始�
     <ram-config-web.version>1.0.2</ram-config-web.version>
     <ram-config-redis.version>1.0.2</ram-config-redis.version>
     <ram-config-mybatis.version>1.0.2</ram-config-mybatis.version>
-    <ram-rbac.version>1.0.0</ram-rbac.version>
+    <ram-rbac.version>1.0.1</ram-rbac.version>
 </properties>
 ```
 
@@ -148,7 +148,7 @@ RAM开发框架提供了一组原型工程，可以使用原型工程，初始�
     <ram-config-web.version>1.0.2</ram-config-web.version>
     <ram-config-redis.version>1.0.2</ram-config-redis.version>
     <ram-config-beetlsql.version>1.0.2</ram-config-beetlsql.version>
-    <ram-rbac.version>1.0.0</ram-rbac.version>
+    <ram-rbac.version>1.0.1</ram-rbac.version>
 </properties>
 ```
 
@@ -279,6 +279,6 @@ doc/sql/update 目录下的sql脚本为版本升级sql脚本，如有版本升�
 
 默认管理员账号为 **admin/Ram2021**
 
-也可以自己根据 app-test/src/main/java/top/beanshell/AppBootstrapTest.java 文件的 initAdminUser 方法初始化一个管理员账号。
+也可以自己根据 app-test/src/test/java/top/beanshell/AppBootstrapTest.java 文件的 initAdminUser 方法初始化一个管理员账号。
 
 注意：线上系统切勿使用admin账号作为系统管理员， 请初始化系统之后，重新创建一个账户，授权系统管理员角色，再将admin账号删除！！！

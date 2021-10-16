@@ -15,6 +15,7 @@ import top.beanshell.rbac.model.dto.RbacTicketDTO;
 import top.beanshell.rbac.model.pojo.RbacTicket;
 import top.beanshell.rbac.model.query.RbacTicketQuery;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +31,15 @@ public class RbacTicketDaoServiceImpl
         RbacTicket ti = BeanUtil.toBean(ticketInfo, RbacTicket.class);
         LambdaQuery<RbacTicket> wrapper = createLambdaQuery();
         wrapper.andEq(RbacTicket::getTicket, ticketInfo.getTicket());
+        return wrapper.update(ti) == 1;
+    }
+
+    @Override
+    public boolean updateByTicketAndUpdateTime(RbacTicketDTO ticketInfo, Date oldUpdateTime) {
+        RbacTicket ti = BeanUtil.toBean(ticketInfo, RbacTicket.class);
+        LambdaQuery<RbacTicket> wrapper = createLambdaQuery();
+        wrapper.andEq(RbacTicket::getTicket, ticketInfo.getTicket());
+        wrapper.andEq(RbacTicket::getUpdateTime, oldUpdateTime);
         return wrapper.update(ti) == 1;
     }
 
@@ -72,5 +82,13 @@ public class RbacTicketDaoServiceImpl
     @Override
     public List<String> findUserAvailableTicket(Long userId) {
         return baseMapper.findUserAvailableTicket(userId);
+    }
+
+    @Override
+    public RbacTicketDTO getByTicket(String ticket) {
+        LambdaQuery<RbacTicket> wrapper = createLambdaQuery();
+        wrapper.andEq(RbacTicket::getTicket, ticket);
+        RbacTicket ticketInfo = wrapper.single();
+        return null == ticketInfo ? null : BeanUtil.toBean(ticketInfo, RbacTicketDTO.class);
     }
 }
