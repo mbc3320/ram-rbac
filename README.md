@@ -66,7 +66,7 @@ RAM开发框架提供了一组原型工程，可以使用原型工程，初始�
     <ram-config-web.version>1.0.2</ram-config-web.version>
     <ram-config-redis.version>1.0.2</ram-config-redis.version>
     <ram-config-mybatis.version>1.0.2</ram-config-mybatis.version>
-    <ram-rbac.version>1.0.0</ram-rbac.version>
+    <ram-rbac.version>1.0.1</ram-rbac.version>
 </properties>
 ```
 
@@ -148,7 +148,7 @@ RAM开发框架提供了一组原型工程，可以使用原型工程，初始�
     <ram-config-web.version>1.0.2</ram-config-web.version>
     <ram-config-redis.version>1.0.2</ram-config-redis.version>
     <ram-config-beetlsql.version>1.0.2</ram-config-beetlsql.version>
-    <ram-rbac.version>1.0.0</ram-rbac.version>
+    <ram-rbac.version>1.0.1</ram-rbac.version>
 </properties>
 ```
 
