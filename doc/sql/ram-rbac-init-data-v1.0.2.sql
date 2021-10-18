@@ -3,11 +3,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Records of tb_rbac_config
--- ----------------------------
-INSERT INTO `tb_rbac_config` VALUES (1448571405666947074, '_system_global_config', '{\"consoleCaptcha\":false,\"captchaType\":null,\"normalLogin\":true,\"smsCodeLogin\":false,\"emailCodeLogin\":false,\"wxMpLogin\":false,\"wxMaLogin\":false,\"customLogin\":false,\"ticketTimeout\":1440,\"passwordErrorExpireTime\":5}', NULL, '2021-10-14 16:48:31', '2021-10-14 18:44:52');
-
--- ----------------------------
 -- Records of tb_rbac_permission
 -- ----------------------------
 INSERT INTO `tb_rbac_permission` VALUES (1447415327718174721, 0, 'api', '系统接口', NULL, '2021-10-11 12:14:40', NULL);

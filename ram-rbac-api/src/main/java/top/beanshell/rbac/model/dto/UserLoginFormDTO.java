@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.beanshell.rbac.common.model.enums.ClientType;
-import top.beanshell.rbac.common.model.enums.LoginType;
 
 import java.io.Serializable;
 
@@ -32,7 +31,7 @@ public class UserLoginFormDTO implements Serializable {
     /**
      * 登录类型
      */
-    private LoginType loginType;
+    private String loginType;
 
     /**
      * 图形校验码id

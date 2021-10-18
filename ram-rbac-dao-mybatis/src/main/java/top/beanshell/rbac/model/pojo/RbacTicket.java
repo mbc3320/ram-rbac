@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import top.beanshell.mybatis.model.pojo.BaseEntity;
 import top.beanshell.rbac.common.model.enums.ClientType;
-import top.beanshell.rbac.common.model.enums.LoginType;
 
 import java.util.Date;
 
@@ -45,7 +44,7 @@ public class RbacTicket extends BaseEntity {
     /**
      * 登录方式
      */
-    private LoginType loginType;
+    private String loginType;
 
     /**
      * 客户端信息

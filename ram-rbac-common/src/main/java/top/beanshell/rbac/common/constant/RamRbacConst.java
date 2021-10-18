@@ -21,4 +21,9 @@ public interface RamRbacConst {
      */
     String DEFAULT_SYS_GLOBAL_CONFIG_KEY = "_system_global_config";
 
+    /**
+     * 用户名/密码登录方式名称
+     */
+    String DEFAULT_LOGIN_TYPE_NORMAL_NAME = "normalLogin";
+
 }

@@ -1,7 +1,7 @@
 package top.beanshell.rbac.controller.request;
 
 import lombok.Data;
-import top.beanshell.rbac.common.model.enums.LoginType;
+import top.beanshell.rbac.common.constant.RamRbacConst;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -32,7 +32,7 @@ public class RbacTicketCreateRequest implements Serializable {
      * 登录类型
      */
     @NotNull(message = "登录类型必填")
-    private LoginType loginType = LoginType.ACCOUNT;
+    private String loginType = RamRbacConst.DEFAULT_LOGIN_TYPE_NORMAL_NAME;
 
     /**
      * 图形校验码id

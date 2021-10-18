@@ -9,9 +9,9 @@ import org.junit.Test;
 import top.beanshell.AppBootstrapTest;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
+import top.beanshell.rbac.common.constant.RamRbacConst;
 import top.beanshell.rbac.common.model.bo.TicketInfoBO;
 import top.beanshell.rbac.common.model.enums.ClientType;
-import top.beanshell.rbac.common.model.enums.LoginType;
 import top.beanshell.rbac.model.dto.RbacTicketDTO;
 import top.beanshell.rbac.model.dto.RbacUserDTO;
 import top.beanshell.rbac.model.dto.UserLoginFormDTO;
@@ -87,7 +87,7 @@ public class RbacTicketServiceTest extends AppBootstrapTest {
         UserLoginFormDTO formDTO = UserLoginFormDTO.builder()
                 .account(ACCOUNT)
                 .accountAuth(getPassword())
-                .loginType(LoginType.ACCOUNT)
+                .loginType(RamRbacConst.DEFAULT_LOGIN_TYPE_NORMAL_NAME)
                 .clientType(ClientType.WEB)
                 .ipAddress("127.0.0.1")
                 .userAgent("Chrome 88")

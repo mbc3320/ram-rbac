@@ -2,6 +2,8 @@ package top.beanshell.rbac.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -23,7 +25,7 @@ import top.beanshell.rbac.service.RbacConfigService;
 import top.beanshell.rbac.service.RbacRoleService;
 import top.beanshell.rbac.service.RbacTicketService;
 import top.beanshell.rbac.service.RbacUserService;
-import top.beanshell.rbac.service.custom.CustomLoginFactoryService;
+import top.beanshell.rbac.service.custom.CustomLoginFactory;
 import top.beanshell.rbac.util.PasswordStorage;
 
 import javax.annotation.Resource;
@@ -48,9 +50,6 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
     private RbacRoleService roleService;
 
     @Resource
-    private CustomLoginFactoryService customLoginFactoryService;
-
-    @Resource
     private RbacTicketService ticketService;
 
     @Resource
@@ -58,6 +57,9 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Resource
+    private ApplicationContext context;
 
     @Override
     public UserDetailBO login(UserLoginFormDTO loginForm) {
@@ -71,10 +73,12 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
         RbacSysGlobalConfigBO globalConfig = configService.getGlobalConfig();
 
         // 检测是否受支持的登录方式
-        globalConfig.checkLoginType(loginForm.getLoginType());
+        String loginTypeServiceName = globalConfig.getLoginTypeServiceName(loginForm.getLoginType());
 
         try {
-            UserDetailBO userDetailBO = customLoginFactoryService.getLoginService(loginForm.getLoginType()).login(loginForm, globalConfig);
+            CustomLoginFactory customLoginFactoryService = context.getBean(loginTypeServiceName, CustomLoginFactory.class);
+
+            UserDetailBO userDetailBO = customLoginFactoryService.getLoginService().login(loginForm, globalConfig);
             cleanUserPasswordErrorEvent(loginForm.getAccount());
             return userDetailBO;
         } catch (BaseException be) {
@@ -88,6 +92,8 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
             }
 
             throw be;
+        } catch (NoSuchBeanDefinitionException nsbe) {
+            throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORT);
         } catch (Exception e) {
             log.error("user login error: account = {}, loginType = {}, errMsg = {}",
                     loginForm.getAccount(), loginForm.getLoginType(), e.getMessage(), e);
