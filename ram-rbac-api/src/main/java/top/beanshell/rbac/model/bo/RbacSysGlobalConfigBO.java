@@ -59,6 +59,6 @@ public class RbacSysGlobalConfigBO implements Serializable {
                 }
             }
         }
-        throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORT);
+        throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORTED);
     }
 }

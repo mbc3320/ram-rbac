@@ -16,6 +16,6 @@ public class SysGlobalConfigSaveRequest implements Serializable {
     /**
      * 属性值
      */
-    @NotEmpty(message = "属性值必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.config-save.key-value}")
     private String keyValue;
 }

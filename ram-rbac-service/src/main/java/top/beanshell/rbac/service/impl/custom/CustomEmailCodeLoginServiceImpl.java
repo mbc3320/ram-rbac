@@ -15,6 +15,6 @@ public class CustomEmailCodeLoginServiceImpl implements CustomLoginService {
 
     @Override
     public UserDetailBO login(UserLoginFormDTO loginForm, RbacSysGlobalConfigBO globalConfig) {
-        throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORT);
+        throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORTED);
     }
 }

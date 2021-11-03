@@ -15,12 +15,12 @@ public class RbacRoleUserGrantRequest implements Serializable {
     /**
      * 角色ID
      */
-    @NotNull(message = "角色ID必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-user-grant.role-id}")
     private Long roleId;
 
     /**
      * 用户ID
      */
-    @NotNull(message = "用户ID必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-user-grant.user-id}")
     private Long userId;
 }

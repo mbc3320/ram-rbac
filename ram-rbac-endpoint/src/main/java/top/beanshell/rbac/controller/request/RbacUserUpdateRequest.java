@@ -17,7 +17,7 @@ public class RbacUserUpdateRequest implements Serializable {
     /**
      * ID
      */
-    @NotNull(message = "ID必填")
+    @NotNull(message = "{i18n.request.valid.id}")
     private Long id;
 
     /**
@@ -33,12 +33,12 @@ public class RbacUserUpdateRequest implements Serializable {
     /**
      * 用户昵称
      */
-    @NotEmpty(message = "昵称必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.user-save.nick-name}")
     private String nickName;
 
     /**
      * 账户状态
      */
-    @NotNull(message = "帐号状态必填")
+    @NotNull(message = "{i18n.request.valid.rbac.user-save.account-state}")
     private AccountState accountState;
 }

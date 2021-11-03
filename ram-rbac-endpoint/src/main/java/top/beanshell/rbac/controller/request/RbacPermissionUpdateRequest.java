@@ -16,6 +16,6 @@ public class RbacPermissionUpdateRequest extends RbacPermissionSaveRequest {
     /**
      * ID
      */
-    @NotNull(message = "ID必填")
+    @NotNull(message = "{i18n.request.valid.id}")
     private Long id;
 }

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import top.beanshell.common.annotation.Authorization;
 import top.beanshell.common.exception.BaseException;
 import top.beanshell.common.exception.code.GlobalStatusCode;
+import top.beanshell.common.service.I18nService;
 import top.beanshell.rbac.common.constant.RamRbacConst;
 import top.beanshell.rbac.common.model.bo.TicketInfoBO;
 import top.beanshell.rbac.common.model.bo.UserDetailBO;
@@ -37,6 +38,9 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
     @Resource
     private RbacTicketService ticketService;
+
+    @Resource
+    private I18nService i18nService;
 
     private static List<String> WHITE_PATH_LIST = new ArrayList<>();
 
@@ -71,10 +75,10 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                     return true;
                 }
             } catch (BaseException be) {
-                ResponseUtil.responseJson(response, new BaseResponse(be.getStatus()));
+                writeResponseWithI18n(response, new BaseResponse(be.getStatus()));
             } catch (Exception e) {
                 log.error("Auth error: {}", e.getMessage(), e);
-                ResponseUtil.responseJson(response, new BaseResponse(GlobalStatusCode.SERVER_ERROR));
+                writeResponseWithI18n(response, new BaseResponse(GlobalStatusCode.SERVER_ERROR));
             }
             /*
              * 无权限访问
@@ -137,7 +141,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
      * @return           false
      */
     protected boolean unauthorizedAccess(HttpServletResponse response ) {
-        ResponseUtil.responseJson(response, new BaseResponse(GlobalStatusCode.PERMISSION_DENY));
+        writeResponseWithI18n(response, new BaseResponse(GlobalStatusCode.PERMISSION_DENY));
         return false;
     }
 
@@ -174,5 +178,13 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
             return ticketInfo;
         }
         return null;
+    }
+
+    private void writeResponseWithI18n(HttpServletResponse response, BaseResponse result) {
+        String i18nMsg = i18nService.getMessage(result.getCode());
+        if (StringUtils.hasText(i18nMsg)) {
+            result.setMsg(i18nMsg);
+        }
+        ResponseUtil.responseJson(response, result);
     }
 }

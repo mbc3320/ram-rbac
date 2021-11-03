@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
+import top.beanshell.common.service.I18nService;
 import top.beanshell.common.service.impl.CRUDServiceImpl;
 import top.beanshell.rbac.common.constant.RamRbacConst;
 import top.beanshell.rbac.common.exception.RbacTicketException;
@@ -49,6 +50,9 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
     @Resource
     private RbacConfigService configService;
 
+    @Resource
+    private I18nService i18nService;
+
     private static SimpleAsyncTaskExecutor ticketUpdateThreads;
 
     static {
@@ -58,7 +62,7 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
 
     @Override
     public TicketInfoBO get(String ticket) {
-        Assert.hasText(ticket, "ticket必填");
+        Assert.hasText(ticket, i18nService.getMessage("i18n.request.valid.common.required", "ticket"));
         TicketInfoBO ticketInfo = (TicketInfoBO) redisTemplate.opsForValue().get(getCacheKey(ticket));
         if (null == ticketInfo) {
             throw new RbacTicketException(RbacTicketStatusCode.TICKET_IS_NOT_EXIST);
@@ -175,7 +179,7 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
 
     @Override
     public List<String> findUserAvailableTicket(Long userId) {
-        Assert.notNull(userId, "userId必填");
+        Assert.notNull(userId, i18nService.getMessage("i18n.request.valid.common.required", "userId"));
         return daoService.findUserAvailableTicket(userId);
     }
 

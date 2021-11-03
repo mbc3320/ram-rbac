@@ -56,7 +56,9 @@ spring:
       group-id: ${ram.application.kafka.group-id}
   lifecycle:
     timeout-per-shutdown-phase: 30s
-
+  messages:
+    basename: i18n.ram-rbac,i18n.ram-config-web,i18n.ram-common
+    encoding: UTF-8
 server:
   port:  ${ram.application.http.port}
   tomcat:
@@ -83,8 +85,8 @@ beetlsql:
 mybatis-plus:
   mapper-locations: classpath*:/sql/mysql/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔\
-  type-aliases-package: top.beanshell.*.model.pojo;top.beanshell.*.*.model.pojo
-  type-enums-package: top.beanshell.*.model.enums;top.beanshell.*.*.model.enums
+  type-aliases-package: top.beanshell.**.model.pojo
+  type-enums-package: top.beanshell.**.model.enums
   global-config:
     #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
     id-type: 2

@@ -15,13 +15,13 @@ public class RbacConfigSaveRequest implements Serializable {
     /**
      * 键名
      */
-    @NotEmpty(message = "键名必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.config-save.key-code}")
     private String keyCode;
 
     /**
      * 键值
      */
-    @NotEmpty(message = "键值必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.config-save.key-value}")
     private String keyValue;
 
     /**

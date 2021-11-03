@@ -11,6 +11,7 @@ import top.beanshell.common.exception.BaseException;
 import top.beanshell.common.exception.code.GlobalStatusCode;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
+import top.beanshell.common.service.I18nService;
 import top.beanshell.common.service.impl.CRUDServiceImpl;
 import top.beanshell.common.utils.IdUtil;
 import top.beanshell.rbac.common.exception.RbacUserException;
@@ -61,6 +62,9 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
     @Resource
     private ApplicationContext context;
 
+    @Resource
+    private I18nService i18nService;
+
     @Override
     public UserDetailBO login(UserLoginFormDTO loginForm) {
 
@@ -86,14 +90,14 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
             if (RbacUserStatusCode.USER_PASSWORD_ERROR.equals(be.getStatus())) {
                 cacheUserPasswordErrorEvent(loginForm.getAccount(), globalConfig);
                 throw new RbacUserException(RbacUserStatusCode.USER_PASSWORD_ERROR,
-                        String.format("%d小时内还可以尝试%d次",
+                        i18nService.getMessage("i18n.message.custom.user-service.password-count",
                                 globalConfig.getPasswordErrorExpireTime(),
                                 null == passwordErrorCount ? 4 : 4 - passwordErrorCount));
             }
 
             throw be;
         } catch (NoSuchBeanDefinitionException nsbe) {
-            throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORT);
+            throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORTED);
         } catch (Exception e) {
             log.error("user login error: account = {}, loginType = {}, errMsg = {}",
                     loginForm.getAccount(), loginForm.getLoginType(), e.getMessage(), e);
@@ -116,7 +120,7 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
      * @param account
      */
     private void cleanUserPasswordErrorEvent(String account) {
-        Assert.hasText(account, "account必填");
+        Assert.hasText(account, i18nService.getMessage("i18n.request.valid.common.required", "account"));
         redisTemplate.delete(getPasswordErrorCountKey(account));
     }
 
@@ -125,7 +129,7 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
      * @param account
      */
     private Integer getUserPasswordErrorCount(String account) {
-        Assert.hasText(account, "account必填");
+        Assert.hasText(account, i18nService.getMessage("i18n.request.valid.common.required", "account"));
         return (Integer) redisTemplate.opsForValue().get(getPasswordErrorCountKey(account));
     }
 

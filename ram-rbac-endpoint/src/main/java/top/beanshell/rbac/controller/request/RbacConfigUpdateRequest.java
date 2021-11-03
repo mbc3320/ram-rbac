@@ -16,6 +16,6 @@ public class RbacConfigUpdateRequest extends RbacConfigSaveRequest{
     /**
      * id
      */
-    @NotNull(message = "id必填")
+    @NotNull(message = "{i18n.request.valid.id}")
     private Long id;
 }

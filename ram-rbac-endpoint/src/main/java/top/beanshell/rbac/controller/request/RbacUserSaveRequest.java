@@ -19,15 +19,15 @@ public class RbacUserSaveRequest implements Serializable {
     /**
      * 帐号
      */
-    @NotEmpty(message = "帐号必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.user-save.account}")
     private String account;
 
     /**
      * 密码
      */
-    @NotEmpty(message = "密码必填")
-    @Length(min = 6, max = 36, message = "密码长度限制为6~36为字符串数字符号组合")
-    @Pattern(regexp = "^\\w{6,36}$", message = "密码不符合复杂度要求")
+    @NotEmpty(message = "{i18n.request.valid.rbac.change-current-user-password.password}")
+    @Length(min = 6, max = 36, message = "{i18n.request.valid.rbac.change-current-user-password.password.length}")
+    @Pattern(regexp = "^\\w{6,36}$", message = "{i18n.request.valid.rbac.change-current-user-password.password.pattern}")
     private String password;
 
     /**
@@ -43,12 +43,12 @@ public class RbacUserSaveRequest implements Serializable {
     /**
      * 用户昵称
      */
-    @NotEmpty(message = "昵称必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.user-save.nick-name}")
     private String nickName;
 
     /**
      * 账户状态
      */
-    @NotNull(message = "帐号状态必填")
+    @NotNull(message = "{i18n.request.valid.rbac.user-save.account-state}")
     private AccountState accountState;
 }

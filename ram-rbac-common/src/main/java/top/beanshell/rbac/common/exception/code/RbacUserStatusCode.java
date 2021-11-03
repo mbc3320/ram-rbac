@@ -17,7 +17,7 @@ public enum RbacUserStatusCode implements EnumCode {
     USER_PASSWORD_TRY_ERROR(10104, "用户密码错误次数过多，请稍后再试"),
     REG_FAILED(10105, "用户保存失败"),
     USER_PASSWORD_MODIFY_FAILED(10106, "用户密码修改失败"),
-    LOGIN_TYPE_UNSUPPORT(10107, "不受支持的登录方式")
+    LOGIN_TYPE_UNSUPPORTED(10107, "不受支持的登录方式")
     ;
 
     private Integer code;

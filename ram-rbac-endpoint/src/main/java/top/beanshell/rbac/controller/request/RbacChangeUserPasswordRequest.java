@@ -18,14 +18,14 @@ public class RbacChangeUserPasswordRequest implements Serializable {
     /**
      * 用户ID
      */
-    @NotNull(message = "用户ID必填")
+    @NotNull(message = "{i18n.request.valid.rbac.change-user-password.user-id}")
     private Long userId;
 
     /**
      * 新密码
      */
-    @NotEmpty(message = "新密码必填")
-    @Length(min = 6, max = 36, message = "密码长度限制为6~36为字符串数字符号组合")
-    @Pattern(regexp = "^\\w{6,36}$", message = "密码不符合复杂度要求")
+    @NotEmpty(message = "{i18n.request.valid.rbac.change-user-password.new-password}")
+    @Length(min = 6, max = 36, message = "{i18n.request.valid.rbac.change-current-user-password.password.length}")
+    @Pattern(regexp = "^\\w{6,36}$", message = "{i18n.request.valid.rbac.change-current-user-password.password.pattern}")
     private String newPwd;
 }

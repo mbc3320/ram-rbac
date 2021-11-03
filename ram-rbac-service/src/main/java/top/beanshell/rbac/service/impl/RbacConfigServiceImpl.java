@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
+import top.beanshell.common.service.I18nService;
 import top.beanshell.common.service.impl.CRUDServiceImpl;
 import top.beanshell.common.utils.JSON;
 import top.beanshell.rbac.common.constant.RamRbacConst;
@@ -36,6 +37,9 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Resource
+    private I18nService i18nService;
 
 
     @Override
@@ -85,7 +89,7 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
 
     @Override
     public RbacConfigDTO getByKeyCode(String keyCode) {
-        Assert.hasText(keyCode, "keyCode必填");
+        Assert.hasText(keyCode, i18nService.getMessage("i18n.request.valid.common.required", "keyCode"));
         if (Boolean.TRUE.equals(redisTemplate.hasKey(getCacheKey(keyCode)))) {
             return (RbacConfigDTO) redisTemplate.opsForValue()
                     .get(getCacheKey(keyCode));
