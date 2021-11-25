@@ -119,16 +119,45 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
                     .build();
             List<RbacSysLoginTypeMetaBO> metaList = Arrays.asList(normalLoginMeta);
 
-            // 初始化一个验证码配置元数据
-            RbacSysLoginCaptchaMetaBO captchaMetaBO = RbacSysLoginCaptchaMetaBO
+            // 初始化验证码配置元数据
+            RbacSysLoginCaptchaMetaBO captchaLineMetaBO = RbacSysLoginCaptchaMetaBO
                     .builder()
                     .enable(false)
-                    .width(200)
-                    .height(80)
+                    .width(100)
+                    .height(36)
                     .captchaServiceName("simpleLineTextCaptchaService")
                     .captchaMetaName("带横线的简单文本")
                     .build();
-            List<RbacSysLoginCaptchaMetaBO> captchaMetaList = Arrays.asList(captchaMetaBO);
+
+            RbacSysLoginCaptchaMetaBO captchaCircleMetaBO = RbacSysLoginCaptchaMetaBO
+                    .builder()
+                    .enable(false)
+                    .width(100)
+                    .height(36)
+                    .captchaServiceName("simpleCircleTextCaptchaService")
+                    .captchaMetaName("带圆圈的简单文本")
+                    .build();
+
+            RbacSysLoginCaptchaMetaBO captchaShearMetaBO = RbacSysLoginCaptchaMetaBO
+                    .builder()
+                    .enable(false)
+                    .width(100)
+                    .height(36)
+                    .captchaServiceName("simpleShearTextCaptchaService")
+                    .captchaMetaName("文字扭曲的简单文本")
+                    .build();
+
+            RbacSysLoginCaptchaMetaBO captchaGifMetaBO = RbacSysLoginCaptchaMetaBO
+                    .builder()
+                    .enable(false)
+                    .width(100)
+                    .height(36)
+                    .captchaServiceName("simpleGifTextCaptchaService")
+                    .captchaMetaName("Gif简单文本")
+                    .build();
+
+            List<RbacSysLoginCaptchaMetaBO> captchaMetaList = Arrays
+                    .asList(captchaLineMetaBO, captchaCircleMetaBO, captchaShearMetaBO, captchaGifMetaBO);
 
             RbacSysGlobalConfigBO globalConfigBO = RbacSysGlobalConfigBO.builder()
                     .consoleCaptcha(false)

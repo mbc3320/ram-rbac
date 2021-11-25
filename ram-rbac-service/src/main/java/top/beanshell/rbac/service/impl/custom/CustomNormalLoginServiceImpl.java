@@ -54,8 +54,8 @@ public class CustomNormalLoginServiceImpl implements CustomLoginService {
 
         //检测图形校验码
         if (globalConfig.getConsoleCaptcha()) {
-            Assert.notNull(loginForm.getImgValidCodeId(), i18nService.getMessage("i18n.request.valid.common.required", "captchaId"));
-            Assert.notNull(loginForm.getImgValidCodeText(), i18nService.getMessage("i18n.request.valid.common.required", "captchaCode"));
+            Assert.hasText(loginForm.getImgValidCodeId(), i18nService.getMessage("i18n.request.valid.common.required", "captchaId"));
+            Assert.hasText(loginForm.getImgValidCodeText(), i18nService.getMessage("i18n.request.valid.common.required", "captchaCode"));
             if (null != globalConfig.getCaptchaMetaList() && globalConfig.getCaptchaMetaList().size() >= 1) {
                 try {
                     Optional<RbacSysLoginCaptchaMetaBO> captchaMetaBO = globalConfig.getCaptchaMetaList()
@@ -66,7 +66,7 @@ public class CustomNormalLoginServiceImpl implements CustomLoginService {
 
                     CaptchaValidDTO validDTO = CaptchaValidDTO
                             .builder()
-                            .id(loginForm.getImgValidCodeId().toString())
+                            .id(loginForm.getImgValidCodeId())
                             .code(loginForm.getImgValidCodeText()).build();
                     boolean validResult = captchaBaseService.valid(validDTO);
                     if (!validResult) {

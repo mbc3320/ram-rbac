@@ -6,18 +6,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.beanshell.common.model.dto.BaseDTO;
 import top.beanshell.common.utils.IdUtil;
 import top.beanshell.rbac.common.model.enums.AccountState;
 import top.beanshell.rbac.common.model.enums.PermissionType;
-import top.beanshell.rbac.model.dto.RbacPermissionDTO;
-import top.beanshell.rbac.model.dto.RbacRoleDTO;
-import top.beanshell.rbac.model.dto.RbacRolePermissionCheckedDTO;
-import top.beanshell.rbac.model.dto.RbacUserDTO;
-import top.beanshell.rbac.service.RbacPermissionService;
-import top.beanshell.rbac.service.RbacRoleService;
-import top.beanshell.rbac.service.RbacUserService;
+import top.beanshell.rbac.model.dto.*;
+import top.beanshell.rbac.service.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -60,6 +56,12 @@ public class AppBootstrapTest {
 
     @Resource
     protected RbacPermissionService permissionService;
+
+    @Resource
+    protected RbacTicketService ticketService;
+
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Test
     public void loadTest() {
@@ -178,6 +180,25 @@ public class AppBootstrapTest {
      */
     protected String getPassword() {
         return SecureUtil.md5(PASSWORD);
+    }
+
+    /**
+     * 获取图形校验码信息
+     * @return      校验码信息
+     */
+    protected RbacCaptchaDTO getCaptcha() {
+        RbacCaptchaDTO captchaDTO = ticketService.captchaCreate();
+        return captchaDTO;
+    }
+
+    /**
+     * 获取图形校验码文本
+     * @param id  校验码ID
+     * @return    校验码文本
+     */
+    protected String getCaptchaCode(String id) {
+        String captchaKey = "captcha:valid:" + id;
+        return  (String) redisTemplate.opsForValue().get(captchaKey);
     }
 
 }

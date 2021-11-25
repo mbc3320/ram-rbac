@@ -37,7 +37,7 @@ public class RbacTicketCreateRequest implements Serializable {
     /**
      * 图形校验码id
      */
-    private Long imgValidCodeId;
+    private String imgValidCodeId;
 
     /**
      * 图形校验码文本

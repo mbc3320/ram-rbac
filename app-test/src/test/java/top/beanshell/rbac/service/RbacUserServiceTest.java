@@ -11,6 +11,7 @@ import top.beanshell.common.model.dto.PageResultDTO;
 import top.beanshell.rbac.common.constant.RamRbacConst;
 import top.beanshell.rbac.common.exception.code.RbacUserStatusCode;
 import top.beanshell.rbac.common.model.bo.UserDetailBO;
+import top.beanshell.rbac.model.dto.RbacCaptchaDTO;
 import top.beanshell.rbac.model.dto.RbacUserDTO;
 import top.beanshell.rbac.model.dto.UserLoginFormDTO;
 import top.beanshell.rbac.model.query.RbacUserQuery;
@@ -44,6 +45,15 @@ public class RbacUserServiceTest extends AppBootstrapTest {
                 .accountAuth(getPassword())
                 .loginType(RamRbacConst.DEFAULT_LOGIN_TYPE_NORMAL_NAME)
                 .build();
+
+        RbacCaptchaDTO captchaDTO = getCaptcha();
+        // 需要验证验证码的
+        if (captchaDTO.getRequired()) {
+            String code = getCaptchaCode(captchaDTO.getId());
+
+            loginFormDTO.setImgValidCodeId(captchaDTO.getId());
+            loginFormDTO.setImgValidCodeText(code);
+        }
 
         UserDetailBO userDetailBO = userService.login(loginFormDTO);
 
