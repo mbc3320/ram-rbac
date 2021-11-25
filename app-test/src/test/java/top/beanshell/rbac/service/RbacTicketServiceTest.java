@@ -9,15 +9,15 @@ import org.junit.Test;
 import top.beanshell.AppBootstrapTest;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
+import top.beanshell.rbac.common.constant.RamRbacConst;
 import top.beanshell.rbac.common.model.bo.TicketInfoBO;
 import top.beanshell.rbac.common.model.enums.ClientType;
-import top.beanshell.rbac.common.model.enums.LoginType;
+import top.beanshell.rbac.model.dto.RbacCaptchaDTO;
 import top.beanshell.rbac.model.dto.RbacTicketDTO;
 import top.beanshell.rbac.model.dto.RbacUserDTO;
 import top.beanshell.rbac.model.dto.UserLoginFormDTO;
 import top.beanshell.rbac.model.query.RbacTicketQuery;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
@@ -25,9 +25,6 @@ import java.util.List;
  * ticket凭证管理单元测试
  */
 public class RbacTicketServiceTest extends AppBootstrapTest {
-
-    @Resource
-    private RbacTicketService ticketService;
 
     @Before
     public void init() {
@@ -77,6 +74,16 @@ public class RbacTicketServiceTest extends AppBootstrapTest {
 
     private TicketInfoBO getTicketInfoBO() {
         UserLoginFormDTO formDTO = getLoginFormDTO();
+
+        RbacCaptchaDTO captchaDTO = getCaptcha();
+        // 需要验证验证码的
+        if (captchaDTO.getRequired()) {
+            String code = getCaptchaCode(captchaDTO.getId());
+
+            formDTO.setImgValidCodeId(captchaDTO.getId());
+            formDTO.setImgValidCodeText(code);
+        }
+
         TicketInfoBO ticketInfoBO = ticketService.create(formDTO);
         Assert.assertNotNull(ticketInfoBO);
         return ticketInfoBO;
@@ -87,7 +94,7 @@ public class RbacTicketServiceTest extends AppBootstrapTest {
         UserLoginFormDTO formDTO = UserLoginFormDTO.builder()
                 .account(ACCOUNT)
                 .accountAuth(getPassword())
-                .loginType(LoginType.ACCOUNT)
+                .loginType(RamRbacConst.DEFAULT_LOGIN_TYPE_NORMAL_NAME)
                 .clientType(ClientType.WEB)
                 .ipAddress("127.0.0.1")
                 .userAgent("Chrome 88")
@@ -118,6 +125,8 @@ public class RbacTicketServiceTest extends AppBootstrapTest {
 
         ticketService.destroy(ticketInfoBO.getTicket());
     }
+
+
 
     @After
     public void done() {

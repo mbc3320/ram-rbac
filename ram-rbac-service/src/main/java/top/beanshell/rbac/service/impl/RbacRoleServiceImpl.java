@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
 import top.beanshell.common.model.vo.AntTreeNodeVO;
+import top.beanshell.common.service.I18nService;
 import top.beanshell.common.service.impl.CRUDServiceImpl;
 import top.beanshell.rbac.common.exception.RbacPermissionException;
 import top.beanshell.rbac.common.exception.RbacRoleException;
@@ -48,6 +49,9 @@ public class RbacRoleServiceImpl extends CRUDServiceImpl<RbacRoleDTO, RbacRoleDa
 
     @Resource
     private RbacTicketService ticketService;
+
+    @Resource
+    private I18nService i18nService;
 
     /**
      * 刷新token信息异步线程
@@ -126,7 +130,7 @@ public class RbacRoleServiceImpl extends CRUDServiceImpl<RbacRoleDTO, RbacRoleDa
 
     @Override
     public RbacRoleDTO getByCode(String roleCode) {
-        Assert.hasText(roleCode, "roleCode必填");
+        Assert.hasText(roleCode, i18nService.getMessage("i18n.request.valid.common.required", "roleCode"));
         return daoService.getByCode(roleCode);
     }
 
@@ -137,7 +141,7 @@ public class RbacRoleServiceImpl extends CRUDServiceImpl<RbacRoleDTO, RbacRoleDa
 
     @Override
     public List<String> findUserRoleCode(Long userId) {
-        Assert.notNull(userId, "userId必填");
+        Assert.notNull(userId, i18nService.getMessage("i18n.request.valid.common.required", "userId"));
         return daoService.findUserRoleCode(userId);
     }
 
@@ -204,8 +208,8 @@ public class RbacRoleServiceImpl extends CRUDServiceImpl<RbacRoleDTO, RbacRoleDa
 
     @Override
     public List<RbacRolePermissionCheckedDTO> findRolePermission(Long roleId, PermissionType permissionType) {
-        Assert.notNull(roleId, "roleId必填");
-        Assert.notNull(permissionType, "permissionType必填");
+        Assert.notNull(roleId, i18nService.getMessage("i18n.request.valid.common.required", "roleId"));
+        Assert.notNull(permissionType, i18nService.getMessage("i18n.request.valid.common.required", "permissionType"));
         return daoService.findRolePermission(roleId, permissionType);
     }
 
@@ -216,7 +220,7 @@ public class RbacRoleServiceImpl extends CRUDServiceImpl<RbacRoleDTO, RbacRoleDa
 
     @Override
     public boolean revokeUserAllRole(Long userId) {
-        Assert.notNull(userId, "userId必填");
+        Assert.notNull(userId, i18nService.getMessage("i18n.request.valid.common.required", "userId"));
         return roleUserService.removeByUserId(userId);
     }
 

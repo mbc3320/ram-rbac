@@ -17,13 +17,13 @@ public class RbacRoleRelSaveRequest implements Serializable {
     /**
      * 角色ID
      */
-    @NotNull(message = "角色ID必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-user-grant.role-id}")
     private Long roleId;
 
     /**
      * 权限类型
      */
-    @NotNull(message = "权限类型必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-rel-save.permission-type}")
     private PermissionType permissionType;
 
     /**

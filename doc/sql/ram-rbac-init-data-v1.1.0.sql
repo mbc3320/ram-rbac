@@ -1,11 +1,4 @@
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Records of tb_rbac_config
--- ----------------------------
-INSERT INTO `tb_rbac_config` VALUES (1448571405666947074, '_system_global_config', '{\"consoleCaptcha\":false,\"captchaType\":null,\"normalLogin\":true,\"smsCodeLogin\":false,\"emailCodeLogin\":false,\"wxMpLogin\":false,\"wxMaLogin\":false,\"customLogin\":false,\"ticketTimeout\":1440,\"passwordErrorExpireTime\":5}', NULL, '2021-10-14 16:48:31', '2021-10-14 18:44:52');
+INSERT INTO `tb_rbac_config` VALUES (1463429048680136706, '_system_global_config', '{\"consoleCaptcha\":true,\"captchaMetaList\":[{\"enable\":false,\"captchaMetaName\":\"带横线的简单文本\",\"captchaServiceName\":\"simpleLineTextCaptchaService\",\"width\":100,\"height\":36,\"extJson\":\"{ \\\"codeCount\\\":  5, \\\"interferingLineCount\\\": 150}\"},{\"enable\":false,\"captchaServiceName\":\"simpleCircleTextCaptchaService\",\"captchaMetaName\":\"带圆圈的简单文本\",\"width\":100,\"height\":36,\"extJson\":\"{ \\\"codeCount\\\":  5, \\\"interferingLineCount\\\": 20}\"},{\"enable\":false,\"captchaServiceName\":\"simpleShearTextCaptchaService\",\"captchaMetaName\":\"扭曲干扰简单文本\",\"width\":100,\"height\":36,\"extJson\":null},{\"enable\":true,\"captchaServiceName\":\"simpleGifTextCaptchaService\",\"captchaMetaName\":\"Gif简单文本\",\"width\":100,\"height\":36,\"extJson\":null}],\"loginServiceMetaList\":[{\"loginType\":\"normalLogin\",\"typeName\":\"账号密码\",\"enable\":true,\"loginFactoryServiceName\":\"normalLoginFactory\"}],\"ticketTimeout\":120,\"passwordErrorExpireTime\":5}', NULL, '2021-11-24 16:47:29', '2021-11-25 14:36:40');
 
 -- ----------------------------
 -- Records of tb_rbac_permission
@@ -78,8 +71,6 @@ INSERT INTO `tb_rbac_permission` VALUES (1448590575657885698, 0, 'api_rbac_ticke
 INSERT INTO `tb_rbac_permission` VALUES (1448590655077031938, 2, 'fun_system_ticket', '用户凭证管理功能', 1448243871289024514, '2021-10-14 18:05:00', NULL);
 INSERT INTO `tb_rbac_permission` VALUES (1448590707392585729, 2, 'fun_system_ticket_kick', '踢出Ticket', 1448590655077031938, '2021-10-14 18:05:13', NULL);
 INSERT INTO `tb_rbac_permission` VALUES (1448630681601073154, 0, 'api_rbac_user_changeUserPassword', '修改用户密码', 1447480258484359169, '2021-10-14 20:44:03', NULL);
-
-
 
 -- ----------------------------
 -- Records of tb_rbac_role
@@ -156,9 +147,9 @@ INSERT INTO `tb_rbac_role_permission` VALUES (1448630736856834050, 1448243470309
 -- ----------------------------
 INSERT INTO `tb_rbac_role_user` VALUES (1448243470900768770, 1448243470309371905, 1448243466811322369, '2021-10-13 19:05:25', NULL);
 
+
 -- ----------------------------
 -- Records of tb_rbac_user
 -- ----------------------------
 INSERT INTO `tb_rbac_user` VALUES (1448243466811322369, 'admin', 'sha1:64000:18:0/YDIGK5gwXLG4uZm8IYtq1QGwCZvDrJ:uHPXXd8XMRluiHXqZkKFZdzG', 'mobinchao@hotmail.com', NULL, 'BeanShell.More', 0, NULL, '2021-10-13 19:05:24', NULL);
 
-SET FOREIGN_KEY_CHECKS = 1;

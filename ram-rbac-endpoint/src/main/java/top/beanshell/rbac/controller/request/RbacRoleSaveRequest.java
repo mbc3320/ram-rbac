@@ -16,19 +16,19 @@ public class RbacRoleSaveRequest implements Serializable {
     /**
      * 角色编码
      */
-    @NotEmpty(message = "角色编码必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.role-save.role-code}")
     private String roleCode;
 
     /**
      * 角色名称
      */
-    @NotEmpty(message = "角色名称必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.role-save.role-name}")
     private String roleName;
 
     /**
      * 是否默认角色
      */
-    @NotNull(message = "是否默认角色必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-save.default-role}")
     private Boolean roleDefault;
 
     /**

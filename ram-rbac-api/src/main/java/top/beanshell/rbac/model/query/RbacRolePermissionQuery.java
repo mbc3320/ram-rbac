@@ -22,7 +22,7 @@ public class RbacRolePermissionQuery implements Serializable {
     /**
      * 角色id
      */
-    @NotNull(message = "角色id必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-user-grant.role-id}")
     private Long roleId;
 
     /**
@@ -33,6 +33,6 @@ public class RbacRolePermissionQuery implements Serializable {
     /**
      * 权限类型
      */
-    @NotNull(message = "权限类型必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-rel-save.permission-type}")
     private PermissionType permissionType;
 }

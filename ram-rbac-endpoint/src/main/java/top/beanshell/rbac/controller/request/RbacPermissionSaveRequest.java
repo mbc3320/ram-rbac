@@ -17,19 +17,19 @@ public class RbacPermissionSaveRequest implements Serializable {
     /**
      * 权限类型
      */
-    @NotNull(message = "权限类型必填")
+    @NotNull(message = "{i18n.request.valid.rbac.role-rel-save.permission-type}")
     private PermissionType permissionType;
 
     /**
      * 权限编码
      */
-    @NotEmpty(message = "权限编码必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.permission-save.permission-code}")
     private String permissionCode;
 
     /**
      * 权限名称
      */
-    @NotEmpty(message = "权限名称必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.permission-save.permission-name}")
     private String permissionName;
 
     /**

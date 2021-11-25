@@ -1,7 +1,7 @@
 package top.beanshell.rbac.controller.request;
 
 import lombok.Data;
-import top.beanshell.rbac.common.model.enums.LoginType;
+import top.beanshell.rbac.common.constant.RamRbacConst;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,26 +18,26 @@ public class RbacTicketCreateRequest implements Serializable {
     /**
      * 帐号
      */
-    @NotEmpty(message = "用户名/手机号/邮箱号必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.ticket-create-request.account}")
     private String account;
 
     /**
      * 密码
      */
-    @NotEmpty(message = "密码/验证码必填")
+    @NotEmpty(message = "{i18n.request.valid.rbac.ticket-create-request.password}")
     @Size(min = 6, max = 40)
     private String accountAuth;
 
     /**
      * 登录类型
      */
-    @NotNull(message = "登录类型必填")
-    private LoginType loginType = LoginType.ACCOUNT;
+    @NotNull(message = "{i18n.request.valid.rbac.ticket-create-request.login-type}")
+    private String loginType = RamRbacConst.DEFAULT_LOGIN_TYPE_NORMAL_NAME;
 
     /**
      * 图形校验码id
      */
-    private Long imgValidCodeId;
+    private String imgValidCodeId;
 
     /**
      * 图形校验码文本

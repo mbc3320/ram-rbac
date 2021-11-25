@@ -5,6 +5,7 @@ import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
 import top.beanshell.common.service.ServiceI;
 import top.beanshell.rbac.common.model.bo.TicketInfoBO;
+import top.beanshell.rbac.model.dto.RbacCaptchaDTO;
 import top.beanshell.rbac.model.dto.RbacTicketDTO;
 import top.beanshell.rbac.model.dto.UserLoginFormDTO;
 import top.beanshell.rbac.model.query.RbacTicketQuery;
@@ -85,4 +86,10 @@ public interface RbacTicketService extends ServiceI<RbacTicketDTO> {
      * @return      踢出结果
      */
     boolean kickOutTicketById(Long id);
+
+    /**
+     * 创建登录验证码
+     * @return  验证码信息
+     */
+    RbacCaptchaDTO captchaCreate();
 }

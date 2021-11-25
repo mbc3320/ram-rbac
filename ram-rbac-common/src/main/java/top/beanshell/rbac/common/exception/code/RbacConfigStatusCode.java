@@ -9,7 +9,8 @@ import top.beanshell.common.model.enu.EnumCode;
  */
 public enum RbacConfigStatusCode implements EnumCode {
 
-    KEY_CODE_IS_EXIST(10400, "键码已存在")
+    KEY_CODE_IS_EXIST(10400, "键码已存在"),
+    GLOBAL_CONFIG_OF_CAPTCHA_ERROR(10401, "登录验证码配置有误")
     ;
 
     private Integer code;

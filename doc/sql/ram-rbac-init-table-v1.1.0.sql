@@ -1,18 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : local-c3-dev
- Source Server Type    : MySQL
- Source Server Version : 50735
- Source Host           : 192.168.137.5:3306
- Source Schema         : ram-rbac
-
- Target Server Type    : MySQL
- Target Server Version : 50735
- File Encoding         : 65001
-
- Date: 16/10/2021 16:29:45
-*/
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -103,7 +88,7 @@ CREATE TABLE `tb_rbac_ticket`  (
   `user_id` bigint(19) NULL DEFAULT NULL COMMENT '用户ID',
   `ticket` varchar(38) CHARACTER SET utf8mb4 COLLATE utf8mb4_croatian_ci NULL DEFAULT NULL COMMENT '凭证',
   `client_type` tinyint(2) NULL DEFAULT NULL COMMENT '客户端类型',
-  `login_type` tinyint(2) NULL DEFAULT NULL COMMENT '登录方式',
+  `login_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_croatian_ci NULL DEFAULT NULL COMMENT '登录方式',
   `ip_address` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_croatian_ci NULL DEFAULT NULL COMMENT 'ip地址',
   `user_agent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_croatian_ci NULL DEFAULT NULL COMMENT '用户UA',
   `account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_croatian_ci NULL DEFAULT NULL COMMENT '账号',

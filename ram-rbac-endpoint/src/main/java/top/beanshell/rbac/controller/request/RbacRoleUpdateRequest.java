@@ -16,6 +16,6 @@ public class RbacRoleUpdateRequest extends RbacRoleSaveRequest {
     /**
      * ID必填
      */
-    @NotNull(message = "ID必填")
+    @NotNull(message = "{i18n.request.valid.id}")
     private Long id;
 }

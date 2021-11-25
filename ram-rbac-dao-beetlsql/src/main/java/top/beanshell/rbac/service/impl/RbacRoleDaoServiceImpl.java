@@ -12,6 +12,7 @@ import top.beanshell.beetlsql.service.impl.CRUDDaoServiceImpl;
 import top.beanshell.beetlsql.util.PageUtil;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
+import top.beanshell.common.service.I18nService;
 import top.beanshell.rbac.common.model.enums.PermissionType;
 import top.beanshell.rbac.dao.RbacRoleDaoService;
 import top.beanshell.rbac.mapper.RbacRoleMapper;
@@ -22,6 +23,7 @@ import top.beanshell.rbac.model.pojo.RbacRole;
 import top.beanshell.rbac.model.query.RbacRoleQuery;
 import top.beanshell.rbac.model.query.RbacRoleUserQuery;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -33,9 +35,12 @@ public class RbacRoleDaoServiceImpl
         extends CRUDDaoServiceImpl<RbacRoleDTO, RbacRole, RbacRoleMapper>
         implements RbacRoleDaoService {
 
+    @Resource
+    private I18nService i18nService;
+
     @Override
     public RbacRoleDTO getByCode(String roleCode) {
-        Assert.hasText(roleCode, "roleCode必填");
+        Assert.hasText(roleCode, i18nService.getMessage("i18n.request.valid.common.required", "roleCode"));
         LambdaQuery<RbacRole> query = createLambdaQuery();
         query.andEq(RbacRole::getRoleCode, roleCode);
         RbacRole rbacRole = query.singleSimple();

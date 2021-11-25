@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import top.beanshell.common.model.dto.BaseDTO;
 import top.beanshell.rbac.common.converter.CommonStrDesensitizeConverter;
 import top.beanshell.rbac.common.model.enums.ClientType;
-import top.beanshell.rbac.common.model.enums.LoginType;
 
 import java.util.Date;
 
@@ -48,7 +47,7 @@ public class RbacTicketDTO extends BaseDTO {
     /**
      * 登录方式
      */
-    private LoginType loginType;
+    private String loginType;
 
     /**
      * 客户端信息
