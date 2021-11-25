@@ -57,7 +57,7 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 30s
   messages:
-    basename: i18n.ram-rbac,i18n.ram-config-web,i18n.ram-common
+    basename: i18n.ram-rbac,i18n.ram-config-web,i18n.ram-common,i18n.ram-captcha
     encoding: UTF-8
 server:
   port:  ${ram.application.http.port}

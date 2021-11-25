@@ -96,6 +96,8 @@ public class RbacUserServiceImpl extends CRUDServiceImpl<RbacUserDTO, RbacUserDa
             }
 
             throw be;
+        } catch (IllegalArgumentException iae) {
+            throw iae;
         } catch (NoSuchBeanDefinitionException nsbe) {
             throw new RbacUserException(RbacUserStatusCode.LOGIN_TYPE_UNSUPPORTED);
         } catch (Exception e) {

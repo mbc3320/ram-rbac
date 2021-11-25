@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.beanshell.rbac.common.exception.RbacUserException;
 import top.beanshell.rbac.common.exception.code.RbacUserStatusCode;
-import top.beanshell.rbac.common.model.enums.CaptchaType;
 
 import java.io.Serializable;
 import java.util.List;
@@ -28,9 +27,9 @@ public class RbacSysGlobalConfigBO implements Serializable {
     private Boolean consoleCaptcha;
 
     /**
-     * 校验码类型
+     * 登录验证码配置元数据列表
      */
-    private CaptchaType captchaType;
+    private List<RbacSysLoginCaptchaMetaBO> captchaMetaList;
 
     /**
      * 登录服务实现列表

@@ -15,6 +15,7 @@ import top.beanshell.common.utils.JSON;
 import top.beanshell.rbac.common.model.bo.TicketInfoBO;
 import top.beanshell.rbac.controller.request.RbacChangeCurrentUserPasswordRequest;
 import top.beanshell.rbac.controller.request.RbacTicketCreateRequest;
+import top.beanshell.rbac.model.dto.RbacCaptchaDTO;
 import top.beanshell.rbac.controller.vo.TicketInfoVO;
 import top.beanshell.rbac.model.dto.RbacTicketDTO;
 import top.beanshell.rbac.model.dto.UserLoginFormDTO;
@@ -151,4 +152,12 @@ public class RbacTicketController extends BaseController {
     private TicketInfoVO convertTicketBO2VO(TicketInfoBO ticketInfoBO) {
         return BeanUtil.toBean(ticketInfoBO, TicketInfoVO.class);
     }
+
+    @RequestMapping("/captchaCreate")
+    @Authorization(valid = false)
+    public BaseResponse<RbacCaptchaDTO> captchaCreate() {
+        RbacCaptchaDTO captchaVO = ticketService.captchaCreate();
+        return successResponse(captchaVO);
+    }
+
 }

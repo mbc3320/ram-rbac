@@ -15,6 +15,7 @@ import top.beanshell.rbac.common.exception.RbacConfigException;
 import top.beanshell.rbac.common.exception.code.RbacConfigStatusCode;
 import top.beanshell.rbac.dao.RbacConfigDaoService;
 import top.beanshell.rbac.model.bo.RbacSysGlobalConfigBO;
+import top.beanshell.rbac.model.bo.RbacSysLoginCaptchaMetaBO;
 import top.beanshell.rbac.model.bo.RbacSysLoginTypeMetaBO;
 import top.beanshell.rbac.model.dto.RbacConfigDTO;
 import top.beanshell.rbac.model.query.RbacConfigQuery;
@@ -110,7 +111,6 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
             return JSON.parse(config.getKeyValue(), RbacSysGlobalConfigBO.class);
         } else {
             // 自动生成一个默认的 无需校验码、支持普通账号密码登录方式、ticket有效期120分钟
-
             RbacSysLoginTypeMetaBO normalLoginMeta = RbacSysLoginTypeMetaBO.builder()
                     .loginType(RamRbacConst.DEFAULT_LOGIN_TYPE_NORMAL_NAME)
                     .typeName("账号密码")
@@ -118,8 +118,21 @@ public class RbacConfigServiceImpl extends CRUDServiceImpl<RbacConfigDTO, RbacCo
                     .loginFactoryServiceName("normalLoginFactory")
                     .build();
             List<RbacSysLoginTypeMetaBO> metaList = Arrays.asList(normalLoginMeta);
+
+            // 初始化一个验证码配置元数据
+            RbacSysLoginCaptchaMetaBO captchaMetaBO = RbacSysLoginCaptchaMetaBO
+                    .builder()
+                    .enable(false)
+                    .width(200)
+                    .height(80)
+                    .captchaServiceName("simpleLineTextCaptchaService")
+                    .captchaMetaName("带横线的简单文本")
+                    .build();
+            List<RbacSysLoginCaptchaMetaBO> captchaMetaList = Arrays.asList(captchaMetaBO);
+
             RbacSysGlobalConfigBO globalConfigBO = RbacSysGlobalConfigBO.builder()
                     .consoleCaptcha(false)
+                    .captchaMetaList(captchaMetaList)
                     .loginServiceMetaList(metaList)
                     .ticketTimeout(120L)
                     .passwordErrorExpireTime(5L)

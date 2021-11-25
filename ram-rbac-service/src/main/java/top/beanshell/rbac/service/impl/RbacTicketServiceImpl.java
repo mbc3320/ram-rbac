@@ -5,22 +5,33 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import top.beanshell.captcha.common.exception.CaptchaException;
+import top.beanshell.captcha.common.exception.code.CaptchaStatusCode;
+import top.beanshell.captcha.model.dto.CaptchaCreateDTO;
+import top.beanshell.captcha.model.dto.CaptchaViewDTO;
+import top.beanshell.captcha.service.CaptchaBaseService;
+import top.beanshell.common.exception.BaseException;
 import top.beanshell.common.model.dto.PageQueryDTO;
 import top.beanshell.common.model.dto.PageResultDTO;
 import top.beanshell.common.service.I18nService;
 import top.beanshell.common.service.impl.CRUDServiceImpl;
 import top.beanshell.rbac.common.constant.RamRbacConst;
+import top.beanshell.rbac.common.exception.RbacConfigException;
 import top.beanshell.rbac.common.exception.RbacTicketException;
+import top.beanshell.rbac.common.exception.code.RbacConfigStatusCode;
 import top.beanshell.rbac.common.exception.code.RbacTicketStatusCode;
 import top.beanshell.rbac.common.model.bo.TicketInfoBO;
 import top.beanshell.rbac.common.model.bo.UserDetailBO;
 import top.beanshell.rbac.dao.RbacTicketDaoService;
 import top.beanshell.rbac.model.bo.RbacSysGlobalConfigBO;
+import top.beanshell.rbac.model.bo.RbacSysLoginCaptchaMetaBO;
+import top.beanshell.rbac.model.dto.RbacCaptchaDTO;
 import top.beanshell.rbac.model.dto.RbacTicketDTO;
 import top.beanshell.rbac.model.dto.UserLoginFormDTO;
 import top.beanshell.rbac.model.query.RbacTicketQuery;
@@ -31,6 +42,7 @@ import top.beanshell.rbac.service.RbacUserService;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,6 +64,9 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
 
     @Resource
     private I18nService i18nService;
+
+    @Resource
+    private ApplicationContext applicationContext;
 
     private static SimpleAsyncTaskExecutor ticketUpdateThreads;
 
@@ -237,5 +252,54 @@ public class RbacTicketServiceImpl extends CRUDServiceImpl<RbacTicketDTO, RbacTi
             return destroy(ticketDTO.getTicket());
         }
         return false;
+    }
+
+    @Override
+    public RbacCaptchaDTO captchaCreate() {
+        RbacCaptchaDTO captchaDTO = RbacCaptchaDTO.builder().required(false).build();
+
+        RbacSysGlobalConfigBO configBO = configService.getGlobalConfig();
+        if (configBO.getConsoleCaptcha()) {
+            captchaDTO.setRequired(true);
+            if (null != configBO.getCaptchaMetaList() && configBO.getCaptchaMetaList().size() >= 1) {
+                try {
+
+                    Optional<RbacSysLoginCaptchaMetaBO> captchaMetaBO = configBO.getCaptchaMetaList()
+                            .stream().filter(meta -> meta.getEnable()).findFirst();
+
+                    CaptchaBaseService captchaBaseService = applicationContext
+                            .getBean(captchaMetaBO.get().getCaptchaServiceName(), CaptchaBaseService.class);
+
+                    CaptchaCreateDTO createDTO = CaptchaCreateDTO
+                            .builder()
+                            .width(captchaMetaBO.get().getWidth())
+                            .height(captchaMetaBO.get().getHeight())
+                            .extJson(captchaMetaBO.get().getExtJson())
+                            .build();
+
+                    CaptchaViewDTO viewDTO = captchaBaseService.create(createDTO);
+
+                    if (null != viewDTO) {
+                        captchaDTO.setId(viewDTO.getId());
+                        captchaDTO.setBase64Data(viewDTO.getBase64Data());
+                        captchaDTO.setExtJson(viewDTO.getExtJson());
+                    } else {
+                        throw new CaptchaException(CaptchaStatusCode.CAPTCHA_CREATE_FAILED);
+                    }
+
+                } catch (BaseException be) {
+                    throw be;
+                }  catch (Exception e) {
+                    log.error("Create captcha error: {}", e.getMessage(), e);
+                    throw new CaptchaException(CaptchaStatusCode.UNSUPPORTED_CAPTCHA_TYPE);
+                }
+
+            } else {
+                throw new RbacConfigException(RbacConfigStatusCode.GLOBAL_CONFIG_OF_CAPTCHA_ERROR);
+            }
+        }
+
+
+        return captchaDTO;
     }
 }
